@@ -1,0 +1,37 @@
+{
+  "name": "@dashkite/vega-client-test",
+  "version": "0.0.0",
+  "description": "Browser-Based Tests for the Vega Client.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dashkite/vega-client-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dashkite/vega-client-test/issues"
+  },
+  "homepage": "https://github.com/dashkite/vega-client-test#readme",
+  "scripts": {
+    "dev": "vite dev",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@modyfi/vite-plugin-yaml": "^1.0.4",
+    "@sveltejs/adapter-static": "^3.0.1",
+    "@sveltejs/kit": "^2.0.6",
+    "@sveltejs/vite-plugin-svelte": "^3.0.1",
+    "coffeescript": "^2.7.0",
+    "svelte": "^4.2.8",
+    "vite": "^5.0.10",
+    "vite-plugin-coffee": "^2.2.1"
+  },
+  "type": "module",
+  "dependencies": {
+    "@dashkite/assert": "^0.1.4",
+    "@dashkite/bake": "^0.0.6",
+    "@dashkite/joy": "^0.3.16",
+    "@dashkite/talos": "link:../talos",
+    "@dashkite/vega-client": "link:../vega-client",
+    "@shoelace-style/shoelace": "^2.12.0",
+    "panda-confidential": "^3.1.2"
+  }
+}

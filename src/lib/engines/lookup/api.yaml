@@ -1,0 +1,14 @@
+resources:
+
+  simple:
+    template: /{alpha}/{beta}
+    methods:
+      get:
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]
+
+      put:
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]

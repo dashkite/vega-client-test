@@ -1,0 +1,113 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html, body, main {
+  height: 100dvh;
+}
+html {
+  overflow: hidden;
+}
+main {
+  width: 100%;
+  background: var(--sl-color-neutral-0);
+  color: var(--sl-color-neutral-900);
+  padding: 1rem;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+#root, #__next {
+  isolation: isolate;
+}
+
+:not(:defined) {
+  visibility: hidden;
+}
+
+body {
+  line-height: var(--sl-line-height-dense);
+  letter-spacing: var(--sl-letter-spacing-normal);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-feature-settings: "kern" 1; 
+  -ms-font-feature-settings: "kern" 1; 
+  -o-font-feature-settings: "kern" 1; 
+  -webkit-font-feature-settings: "kern" 1; 
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: var(--sl-font-weight-black);
+  text-transform: capitalize;
+}
+
+h1 {
+  font-size: var(--sl-font-size-x-large);
+}
+h2, h3, h4, h5, h6 {
+  font-size: var(--sl-font-size-large);
+}
+
+p {
+  font-size: var(--sl-font-size-copy);
+  overflow-wrap: anywhere;
+}
+
+a, a:hover, a:visited {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: var(--sl-font-weight-normal);
+  color: var(--sl-color-neutral-900);
+}
+
+p > a, p > a:hover, p > a:visited {
+  display: inline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--sl-color-neutral-900);
+  border-radius: var(--sl-border-radius-medium);
+}
+
+@supports not selector(:focus-visible) {
+  a:focus {
+    outline: 2px solid var(--sl-color-neutral-900);
+    border-radius: var(--sl-border-radius-medium);
+  }
+}
+
+p > a:focus-visible {
+  outline: 2px solid var(--sl-color-neutral-900);
+  border-radius: var(--sl-border-radius-medium);
+}
+
+@supports not selector(:focus-visible) {
+  p > a:focus {
+    outline: 2px solid var(--sl-color-neutral-900);
+    border-radius: var(--sl-border-radius-medium);
+  }
+}
+
+.page-wrapper {
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
