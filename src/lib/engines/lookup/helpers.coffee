@@ -1,11 +1,8 @@
-import assert from "@dashkite/assert"
 import { confidential } from "panda-confidential"
-import { convert } from "@dashkite/bake"
-import API from "./api.yaml"
 import { PUBLIC_ORIGIN as origin } from "$env/static/public"
+import { queue } from "$lib/helpers/queue.coffee"
 
 Confidential = confidential()
-cache = {}
 
 
 random = ( options = {} ) ->
@@ -14,25 +11,6 @@ random = ( options = {} ) ->
     await Confidential.randomBytes length
 
 now = -> ( new Date ).toISOString()
-
-
-echo = ( object ) ->
-  convert from: "utf8", to: "safe-base64", JSON.stringify object
-
-echoDiscovery = ->
-  cache.discovery ?= echo
-    description: "ok"
-    content: API
-    headers:
-      "content-type": [ "application/json" ]
-
-echoJSON = ( description, body ) ->
-  echo
-    description: description
-    content: body
-    headers:
-      "content-type": [ "application/json" ]
-
 
 
 class Test
@@ -52,6 +30,8 @@ class Test
     catch error
       console.error @name, error
       @state = "failure"
+    
+    queue.clear()
 
 
 test = ( name, _test ) -> Test.make name, _test
@@ -60,11 +40,6 @@ test = ( name, _test ) -> Test.make name, _test
 export {
   random
   now
-  API
   origin
   test
-
-  echo
-  echoDiscovery
-  echoJSON
 }

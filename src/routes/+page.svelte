@@ -8,6 +8,7 @@
   let _blocks = [
     [ "basic", "Basic Request Response Cycle" ]
   ];
+  let state = "ready";
   
   const loadBlocks = async function () {
     for ( const [ id, name ] of _blocks ) {
@@ -16,15 +17,29 @@
   };
 
   const runTests = allyEvent( async function () {
+    switch ( state ) {
+      case "running":
+        return;
+      case "complete":
+        blocks = [];
+        await loadBlocks();
+        blocks = blocks;
+        state = "ready";
+      case "ready":
+        break;
+    }
+    
     for ( let i = 0; i < blocks.length; i++) {
       const block = blocks[ i ];
       console.log( block );
-      for ( let j = 0; i < block.tests.length; i++) {
+      for ( let j = 0; j < block.tests.length; j++) {
         const test = block.tests[ j ];
         await test.run();
         blocks = blocks; // trigger render.
       }
     }
+    
+    state = "complete";
   });
 
 </script>

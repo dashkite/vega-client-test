@@ -3,8 +3,10 @@
   import "@shoelace-style/shoelace/dist/themes/dark.css";
   import "$lib/styles/reset.css";
   import { onMount } from "svelte";
+  import { Fetch } from "$lib/engines/fetch/index.coffee";
 
   let main;
+  window.fetch = Fetch( window.fetch );
 
   onMount(() => {
     if ( window.matchMedia("(prefers-color-scheme: light)").matches ) {

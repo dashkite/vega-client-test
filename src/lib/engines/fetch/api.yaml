@@ -1,0 +1,27 @@
+resources:
+
+  simple:
+    template: /{alpha}/{beta}
+    methods:
+      get:
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]
+
+      put:
+        request:
+          content-type: [ application/json ]
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]
+
+      delete:
+        response:
+          status: [ 204 ]
+
+      post:
+        request:
+          content-type: [ application/json ]
+        response:
+          content-type: [ application/json ]
+          status: [ 201 ]
