@@ -6,7 +6,9 @@
 
   let blocks = [];
   let _blocks = [
-    [ "basic", "Basic Request Response Cycle" ]
+    [ "happySky", "Happy Request Response Cycle" ],
+    [ "unhappySky", "Unhappy Path Linear Sky Interactions" ],
+    [ "happyMedia", "Happy Media Type Inference" ]
   ];
   let state = "ready";
   

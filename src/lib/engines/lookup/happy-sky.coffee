@@ -2,16 +2,6 @@ import assert from "@dashkite/assert"
 import { Resource } from "@dashkite/vega-client"
 import { queue } from "$lib/helpers/queue.coffee"
 
-assertDiscover = ->
-  event = await queue.get()
-  assert.equal "request", event.type
-  assert.equal "get", event.options.method
-  assert.equal "/", event.url.pathname
-
-  event = await queue.get()
-  assert.equal "response", event.type
-  assert.equal 200, event.response.status
-
 
 prepare = ( Helpers ) ->
 
@@ -19,17 +9,17 @@ prepare = ( Helpers ) ->
     Helpers.test "get", ->
       response = await Resource.get
         origin: Helpers.origin
-        name: "simple"
+        name: "happy sky"
         bindings:
           alpha: "foo"
           beta: "bar"
 
-      await assertDiscover()
+      await Helpers.assertDiscover()
 
       event = await queue.get()
       assert.equal "request", event.type
       assert.equal "get", event.options.method
-      assert.equal "/foo/bar", event.url.pathname
+      assert.equal "/happy-sky/foo/bar", event.url.pathname
       
       event = await queue.get()
       assert.equal "response", event.type
@@ -40,19 +30,19 @@ prepare = ( Helpers ) ->
     Helpers.test "put", ->
       response = await Resource.put
         origin: Helpers.origin
-        name: "simple"
+        name: "happy sky"
         bindings:
           alpha: "foo"
           beta: "bar"
         content:
           foo: "bar"
       
-      await assertDiscover()
+      await Helpers.assertDiscover()
 
       event = await queue.get()
       assert.equal "request", event.type
       assert.equal "put", event.options.method
-      assert.equal "/foo/bar", event.url.pathname
+      assert.equal "/happy-sky/foo/bar", event.url.pathname
       
       event = await queue.get()
       assert.equal "response", event.type
@@ -63,17 +53,17 @@ prepare = ( Helpers ) ->
     Helpers.test "delete", ->
       response = await Resource.delete
         origin: Helpers.origin
-        name: "simple"
+        name: "happy sky"
         bindings:
           alpha: "foo"
           beta: "bar"
       
-      await assertDiscover()
+      await Helpers.assertDiscover()
 
       event = await queue.get()
       assert.equal "request", event.type
       assert.equal "delete", event.options.method
-      assert.equal "/foo/bar", event.url.pathname
+      assert.equal "/happy-sky/foo/bar", event.url.pathname
       
       event = await queue.get()
       assert.equal "response", event.type
@@ -84,19 +74,19 @@ prepare = ( Helpers ) ->
     Helpers.test "post", ->
       response = await Resource.post
         origin: Helpers.origin
-        name: "simple"
+        name: "happy sky"
         bindings:
           alpha: "foo"
           beta: "bar"
         content:
           foo: "baz"
       
-      await assertDiscover()
+      await Helpers.assertDiscover()
 
       event = await queue.get()
       assert.equal "request", event.type
       assert.equal "post", event.options.method
-      assert.equal "/foo/bar", event.url.pathname
+      assert.equal "/happy-sky/foo/bar", event.url.pathname
       
       event = await queue.get()
       assert.equal "response", event.type

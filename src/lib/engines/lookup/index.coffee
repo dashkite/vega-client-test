@@ -1,8 +1,12 @@
 import * as helpers from "./helpers.coffee"
-import basic from "./basic.coffee"
+import happySky from "./happy-sky.coffee"
+import unhappySky from "./unhappy-sky.coffee"
+import happyMedia from "./happy-media.coffee"
 
 table = {
-  basic
+  happySky
+  unhappySky
+  happyMedia
 }
 
 

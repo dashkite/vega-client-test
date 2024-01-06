@@ -1,7 +1,7 @@
 resources:
 
-  simple:
-    template: /{alpha}/{beta}
+  happy sky:
+    template: /happy-sky/{alpha}/{beta}
     methods:
       get:
         response:
@@ -25,3 +25,19 @@ resources:
         response:
           content-type: [ application/json ]
           status: [ 201 ]
+
+  unhappy sky:
+    template: /unhappy-sky/{alpha}/{beta}
+    methods:
+      post:
+        response:
+          content-type: [ application/json ]
+          status: [ 202 ]
+
+  happy media:
+    template: /happy-media
+    methods:
+      put:
+        response:
+          content-type: [ application/json, plain/text, application/octet-stream ]
+          status: [ 202 ]

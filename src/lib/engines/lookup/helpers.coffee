@@ -1,6 +1,8 @@
+import assert from "@dashkite/assert"
 import { confidential } from "panda-confidential"
 import { PUBLIC_ORIGIN as origin } from "$env/static/public"
 import { queue } from "$lib/helpers/queue.coffee"
+import { setDispatcher } from "$lib/engines/fetch/echo.coffee"
 
 Confidential = confidential()
 
@@ -20,6 +22,8 @@ class Test
   @make: ( name, test ) -> new @ { name, test }
 
   run: ->
+    queue.clear()
+    setDispatcher "normal"
     if !@test?
       @state = "warning"
       return
@@ -30,11 +34,19 @@ class Test
     catch error
       console.error @name, error
       @state = "failure"
-    
-    queue.clear()
 
 
 test = ( name, _test ) -> Test.make name, _test
+
+assertDiscover = ->
+  event = await queue.get()
+  assert.equal "request", event.type
+  assert.equal "get", event.options.method
+  assert.equal "/", event.url.pathname
+
+  event = await queue.get()
+  assert.equal "response", event.type
+  assert.equal 200, event.response.status
 
 
 export {
@@ -42,4 +54,6 @@ export {
   now
   origin
   test
+  assertDiscover
+  setDispatcher
 }
