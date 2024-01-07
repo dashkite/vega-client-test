@@ -22,6 +22,7 @@ class Test
   @make: ( name, test ) -> new @ { name, test }
 
   run: ->
+    await window.caches.delete "vega-client"
     queue.clear()
     setDispatcher "normal"
     if !@test?

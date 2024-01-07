@@ -67,6 +67,19 @@ echoUnhappyMedia = ( options ) ->
     else
       echoNoMethod()
 
+# If a GET request got here, it's a cache miss. Echo PUTs.
+echoCacheEmulation = ( options ) ->
+  headers =
+    "content-type": [ options.headers[ "content-type" ] ]
+    "cache-control": [ "max-age=60" ]
+
+  switch options.method
+    when "get" then echoResponse "not found", {}, message: "not found"
+    when "put" then echoResponse "ok", headers, options.body
+    when "delete" then echoResponse "no content", {}
+    else
+      echoNoMethod()
+
 
 dispatchers = 
   "bad discovery": ( url, options ) ->
@@ -90,6 +103,7 @@ dispatchers =
       when "/unhappy-sky/foo/bar" then echoUnhappySky options
       when "/happy-json", "/happy-text", "/happy-binary" then echoHappyMedia options
       when "/unhappy-text", "/unhappy-json" then echoUnhappyMedia options
+      when "/cache" then echoCacheEmulation options
       else
         throw new Error "no matching dispatch for path #{ path }"
 

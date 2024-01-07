@@ -3,12 +3,14 @@ import happySky from "./happy-sky.coffee"
 import unhappySky from "./unhappy-sky.coffee"
 import happyMedia from "./happy-media.coffee"
 import unhappyMedia from "./unhappy-media.coffee"
+import cache from "./cache.coffee"
 
 table = {
   happySky
   unhappySky
   happyMedia
   unhappyMedia
+  cache
 }
 
 

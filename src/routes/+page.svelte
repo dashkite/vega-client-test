@@ -9,7 +9,8 @@
     [ "happySky", "Happy Path Request Response Cycle" ],
     [ "unhappySky", "Unhappy Path Sky Interactions" ],
     [ "happyMedia", "Happy Path Media Type Inference" ],
-    [ "unhappyMedia", "Unhappy Path Media Type Inference" ]
+    [ "unhappyMedia", "Unhappy Path Media Type Inference" ],
+    [ "cache", "Write Through Caching" ]
   ];
   let state = "ready";
   

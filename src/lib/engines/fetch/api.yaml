@@ -83,3 +83,22 @@ resources:
         response:
           content-type: [ text/plain ]
           status: [ 200 ]
+
+  cache:
+    template: /cache
+    methods:
+      get:
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]
+
+      put:
+        request:
+          content-type: [ application/json ]
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]
+
+      delete:
+        response:
+          status: [ 204 ]
