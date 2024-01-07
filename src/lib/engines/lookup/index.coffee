@@ -2,11 +2,13 @@ import * as helpers from "./helpers.coffee"
 import happySky from "./happy-sky.coffee"
 import unhappySky from "./unhappy-sky.coffee"
 import happyMedia from "./happy-media.coffee"
+import unhappyMedia from "./unhappy-media.coffee"
 
 table = {
   happySky
   unhappySky
   happyMedia
+  unhappyMedia
 }
 
 

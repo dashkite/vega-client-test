@@ -26,6 +26,7 @@ echoResponse = ( description, _headers, content ) ->
   if description != "no content"
     response.headers[ "content-type" ] ?= [ "application/json" ]
 
+  console.log response
   echo response
 
 echoNoMethod = ->
@@ -50,7 +51,16 @@ echoUnhappySky = ( options ) ->
 
 echoHappyMedia = ( options ) ->
   headers =
-    "content-type": options.headers[ "accept" ][ 0 ]
+    "content-type": [ options.headers[ "content-type" ] ]
+
+  switch options.method
+    when "put" then echoResponse "ok", headers, options.body
+    else
+      echoNoMethod()
+
+echoUnhappyMedia = ( options ) ->
+  headers =
+    "content-type": [ "application/json" ]
 
   switch options.method
     when "put" then echoResponse "ok", headers, options.body
@@ -78,7 +88,8 @@ dispatchers =
       when "/" then echoDiscovery()
       when "/happy-sky/foo/bar" then echoHappy options
       when "/unhappy-sky/foo/bar" then echoUnhappySky options
-      when "/happy-media" then echoHappyMedia url, options
+      when "/happy-json", "/happy-text", "/happy-binary" then echoHappyMedia options
+      when "/unhappy-text", "/unhappy-json" then echoUnhappyMedia options
       else
         throw new Error "no matching dispatch for path #{ path }"
 
