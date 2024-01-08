@@ -10,7 +10,8 @@
     [ "unhappySky", "Unhappy Path Sky Interactions" ],
     [ "happyMedia", "Happy Path Media Type Inference" ],
     [ "unhappyMedia", "Unhappy Path Media Type Inference" ],
-    [ "cache", "Write Through Caching" ]
+    [ "cache", "Write Through Caching" ],
+    [ "authorization", "Authorization Flows" ],
   ];
   let state = "ready";
   

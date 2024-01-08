@@ -102,3 +102,25 @@ resources:
       delete:
         response:
           status: [ 204 ]
+
+  happy rune:
+    template: /happy-rune
+    methods:
+      put:
+        request:
+          authorization: [ rune ]
+          content-type: [ application/json ]
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]
+
+  happy email:
+    template: /happy-email
+    methods:
+      put:
+        request:
+          authorization: [ rune ]
+          content-type: [ application/json ]
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]

@@ -13,7 +13,7 @@ test = ( fetch, _url, options ) ->
   options.method ?= "get"
   queue.push { type: "request", url, options }
   
-  echoValue = dispatch url, options
+  echoValue = await dispatch url, options
   url.searchParams.set "echo", echoValue
 
   response = await fetch url.href, options
@@ -24,7 +24,8 @@ test = ( fetch, _url, options ) ->
 isTest = ( _url ) ->
   try
     url = new URL _url
-    url.hostname == cache.testDomain
+    url.hostname == cache.testDomain && 
+      url.pathname != "/echo-rune"
   catch error
     false
 

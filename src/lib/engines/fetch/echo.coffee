@@ -1,13 +1,23 @@
 import * as Obj from "@dashkite/joy/object"
 import { convert } from "@dashkite/bake"
 import API from "./api.yaml"
+import Authorization from "$lib/engines/lookup/authorization.yaml"
+import { PUBLIC_ORIGIN as origin } from "$env/static/public"
 
 cache =
   dispatcher: "normal"
 
 
 echo = ( object ) ->
-  convert from: "utf8", to: "safe-base64", JSON.stringify object
+  convert from: "utf8", to: "base64", JSON.stringify object
+
+issueRune = ( authorization ) ->
+  url = new URL "/echo-rune", origin
+  url.searchParams.set "authorization", echo authorization
+  response = await fetch url.href
+  if response.status != 200
+    throw new Error "failed to get echo test rune"
+  await response.json()
 
 echoDiscovery = ->
   cache.discovery ?= echo
@@ -81,6 +91,55 @@ echoCacheEmulation = ( options ) ->
       echoNoMethod()
 
 
+echoHappyRune = ( options ) ->
+  header = options.headers[ "authorization" ]
+  if !header?
+    return echoResponse "forbidden", {}, message: "missing authorization header"
+  if ! /(^rune)|(^credentials)/.test header
+    return echoResponse "forbidden", {}, message: "authorization header does not use rune scheme"
+
+  headers =
+    "content-type": [ "application/json" ]
+
+  switch options.method
+    when "put" then echoResponse "ok", headers, options.body
+    else
+      echoNoMethod()
+
+echoHappyEmail = ( url, options ) ->
+  header = options.headers[ "authorization" ]
+  if !header?
+    return echoResponse "forbidden", {}, message: "missing authorization header"
+  
+  if header.startsWith "email"
+    location = new URL url
+    location.pathname = "/happy-email-wait"
+    headers =
+      "cache-control": [ "no-cache" ]
+      "location": [ location.href ]
+      "www-authenticate": [ "rune" ]
+    return echo
+      description: "unauthorized"
+      headers: headers
+
+  if header.startsWith "credentials"
+    return echoResponse "ok", {}, options.body
+
+
+echoHappyEmailWait = ( url, options ) ->
+  rune = await issueRune Authorization
+  runes = [
+    "credentials #{ rune }"
+  ]
+  headers =
+    "content-type": [ "application/json" ]
+    "credentials": [ "credentials #{ echo runes }" ]
+      
+  body = status: "success"
+  echoResponse "ok", headers, body
+
+
+
 dispatchers = 
   "bad discovery": ( url, options ) ->
     path = url.pathname
@@ -95,7 +154,7 @@ dispatchers =
 
   normal: ( url, options ) ->
     path = url.pathname
-    console.log "dispatch", options.method.toUpperCase(), path
+    console.log "dispatch", options.method.toUpperCase(), path, options.headers
 
     switch path
       when "/" then echoDiscovery()
@@ -104,6 +163,9 @@ dispatchers =
       when "/happy-json", "/happy-text", "/happy-binary" then echoHappyMedia options
       when "/unhappy-text", "/unhappy-json" then echoUnhappyMedia options
       when "/cache" then echoCacheEmulation options
+      when "/happy-rune" then echoHappyRune options
+      when "/happy-email" then echoHappyEmail url, options
+      when "/happy-email-wait" then echoHappyEmailWait options
       else
         throw new Error "no matching dispatch for path #{ path }"
 

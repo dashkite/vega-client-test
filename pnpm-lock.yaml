@@ -14,6 +14,9 @@ dependencies:
   '@dashkite/joy':
     specifier: ^0.3.16
     version: 0.3.16
+  '@dashkite/runes-client':
+    specifier: link:../runes-client
+    version: link:../runes-client
   '@dashkite/talos':
     specifier: link:../talos
     version: link:../talos

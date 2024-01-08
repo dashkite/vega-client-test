@@ -3,14 +3,20 @@ import { confidential } from "panda-confidential"
 import { PUBLIC_ORIGIN as origin } from "$env/static/public"
 import { queue } from "$lib/helpers/queue.coffee"
 import { setDispatcher } from "$lib/engines/fetch/echo.coffee"
+import * as RunesClient from "@dashkite/runes-client"
+
 
 Confidential = confidential()
+domain = ( new URL origin ).hostname
 
 
 random = ( options = {} ) ->
   { length = 16, encoding = "base36" } = options
   Confidential.convert from: "bytes", to: encoding,
     await Confidential.randomBytes length
+
+nonce = ->
+  await random encoding: "base64", length: 4
 
 now = -> ( new Date ).toISOString()
 
@@ -50,11 +56,29 @@ assertDiscover = ->
   assert.equal 200, event.response.status
 
 
+encode = ( object ) ->
+  Confidential.convert from: "utf8", to: "base64", JSON.stringify object
+
+issueRune = ( authorization ) ->
+  url = new URL "/echo-rune", origin
+  url.searchParams.set "authorization", encode authorization
+  response = await fetch url.href
+  if response.status != 200
+    throw new Error "failed to get echo test rune"
+  await response.json()
+
+
 export {
   random
+  nonce
   now
+
   origin
+  domain
   test
   assertDiscover
   setDispatcher
+
+  encode
+  issueRune
 }

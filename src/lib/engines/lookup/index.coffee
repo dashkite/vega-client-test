@@ -4,6 +4,7 @@ import unhappySky from "./unhappy-sky.coffee"
 import happyMedia from "./happy-media.coffee"
 import unhappyMedia from "./unhappy-media.coffee"
 import cache from "./cache.coffee"
+import authorization from "./authorization.coffee"
 
 table = {
   happySky
@@ -11,6 +12,7 @@ table = {
   happyMedia
   unhappyMedia
   cache
+  authorization
 }
 
 
