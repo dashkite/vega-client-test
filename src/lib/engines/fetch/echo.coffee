@@ -127,9 +127,11 @@ echoHappyEmail = ( url, options ) ->
 
 
 echoHappyEmailWait = ( url, options ) ->
-  rune = await issueRune Authorization
+  { rune, nonce } = await issueRune Authorization
   runes = [
-    "credentials #{ rune }"
+    """
+    rune rune="#{ rune }", nonce="#{ nonce }"
+    """
   ]
   headers =
     "content-type": [ "application/json" ]
@@ -138,6 +140,28 @@ echoHappyEmailWait = ( url, options ) ->
   body = status: "success"
   echoResponse "ok", headers, body
 
+
+echoUnhappyRune = ( options ) ->
+  echoResponse "forbidden", {}
+
+echoUnhappyEmail = ( url, options ) ->
+  header = options.headers[ "authorization" ]
+  if !header?
+    return echoResponse "forbidden", {}, message: "missing authorization header"
+  
+  if header.startsWith "email"
+    location = new URL url
+    location.pathname = "/happy-email-wait"
+    headers =
+      "cache-control": [ "no-cache" ]
+      "location": [ location.href ]
+      "www-authenticate": [ "rune" ]
+    return echo
+      description: "unauthorized"
+      headers: headers
+
+  if header.startsWith "credentials"
+    return echoResponse "ok", {}, options.body
 
 
 dispatchers = 
@@ -166,6 +190,8 @@ dispatchers =
       when "/happy-rune" then echoHappyRune options
       when "/happy-email" then echoHappyEmail url, options
       when "/happy-email-wait" then echoHappyEmailWait options
+      when "/unhappy-rune" then echoUnhappyRune options
+      when "/unhappy-email" then echoUnhappyEmail url, options
       else
         throw new Error "no matching dispatch for path #{ path }"
 

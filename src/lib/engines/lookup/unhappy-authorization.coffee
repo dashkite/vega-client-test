@@ -9,73 +9,87 @@ prepare = ( Helpers ) ->
 
   authorization.domain = Helpers.domain
 
-  setupRunes = ->
-    localStorage.setItem "identity", authorization.identity
-    RunesClient.store await Helpers.issueRune authorization
-
 
   [
-    Helpers.test "Happy Rune Literal", ->
+    Helpers.test "Rune Literal", ->
       context = 
         origin: Helpers.origin
-        name: "happy rune"
+        name: "unhappy rune"
         authorization:
           rune: await Helpers.random encoding: "base64", length: 16
           nonce: await Helpers.nonce()
         content:
           foo: "foo"
       
-      response = await Resource.put context
+      Helpers.clearRunes authorization.identity
+      success = null
+      try
+        await Resource.put context
+        success = true
+      catch error
+        success = false
 
       await Helpers.assertDiscover()
       
       event = await queue.get()
       assert.equal "request", event.type
       assert.equal "put", event.options.method
-      assert.equal "/happy-rune", event.url.pathname
+      assert.equal "/unhappy-rune", event.url.pathname
       
       event = await queue.get()
       assert.equal "response", event.type
-      assert.equal 200, event.response.status
+      assert.equal 403, event.response.status
 
-    Helpers.test "Happy Rune Local Storage", ->
+      if success == true
+        throw new Error "request should not have succeeded"
+
+
+    Helpers.test "Rune From localStorage", ->
       context = 
         origin: Helpers.origin
-        name: "happy rune"
+        name: "unhappy rune"
         content:
           foo: "foo"
       
-      await setupRunes()
-      response = await Resource.put context
+      Helpers.clearRunes authorization.identity
+      success = null
+      try
+        await Resource.put context
+        success = true
+      catch error
+        success = false
 
       await Helpers.assertDiscover()
-      
-      event = await queue.get()
-      assert.equal "request", event.type
-      assert.equal "put", event.options.method
-      assert.equal "/happy-rune", event.url.pathname
-      
-      event = await queue.get()
-      assert.equal "response", event.type
-      assert.equal 200, event.response.status
 
-    Helpers.test "Happy Email", ->
+      values = queue.values()
+      assert.equal 0, values.length
+      
+      if success == true
+        throw new Error "request should not have succeeded"
+
+    Helpers.test "Rune From Email Flow", ->
       context = 
         origin: Helpers.origin
-        name: "happy email"
+        name: "unhappy email"
         authorization:
           email: authorization.identity
         content:
           foo: "foo"
       
-      response = await Resource.put context
+      Helpers.clearRunes authorization.identity
+      success = null
+      try
+        await Resource.put context
+        success = true
+      catch error
+        success = false
 
       await Helpers.assertDiscover()
-      
+
       event = await queue.get()
       assert.equal "request", event.type
       assert.equal "put", event.options.method
-      assert.equal "/happy-email", event.url.pathname
+      assert.equal "/unhappy-email", event.url.pathname
       
       event = await queue.get()
       assert.equal "response", event.type
@@ -90,14 +104,11 @@ prepare = ( Helpers ) ->
       assert.equal "response", event.type
       assert.equal 200, event.response.status
 
-      event = await queue.get()
-      assert.equal "request", event.type
-      assert.equal "put", event.options.method
-      assert.equal "/happy-email", event.url.pathname
+      values = queue.values()
+      assert.equal 0, values.length
       
-      event = await queue.get()
-      assert.equal "response", event.type
-      assert.equal 200, event.response.status
+      if success == true
+        throw new Error "request should not have succeeded"
 
   ]
 

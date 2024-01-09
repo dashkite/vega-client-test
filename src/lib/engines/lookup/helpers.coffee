@@ -55,6 +55,9 @@ assertDiscover = ->
   assert.equal "response", event.type
   assert.equal 200, event.response.status
 
+clearRunes = ( identity ) ->
+  localStorage.setItem "identity", identity
+  localStorage.removeItem identity
 
 encode = ( object ) ->
   Confidential.convert from: "utf8", to: "base64", JSON.stringify object
@@ -77,6 +80,7 @@ export {
   domain
   test
   assertDiscover
+  clearRunes
   setDispatcher
 
   encode

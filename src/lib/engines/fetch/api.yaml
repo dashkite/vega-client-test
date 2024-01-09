@@ -124,3 +124,25 @@ resources:
         response:
           content-type: [ application/json ]
           status: [ 200 ]
+
+  unhappy rune:
+    template: /unhappy-rune
+    methods:
+      put:
+        request:
+          authorization: [ rune ]
+          content-type: [ application/json ]
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]
+
+  unhappy email:
+    template: /unhappy-email
+    methods:
+      put:
+        request:
+          authorization: [ rune ]
+          content-type: [ application/json ]
+        response:
+          content-type: [ application/json ]
+          status: [ 200 ]
