@@ -121,6 +121,7 @@ echoHappyEmail = ( url, options ) ->
     return echo
       description: "unauthorized"
       headers: headers
+      content: {}
 
   if header.startsWith "credentials"
     return echoResponse "ok", {}, options.body
@@ -159,6 +160,7 @@ echoUnhappyEmail = ( url, options ) ->
     return echo
       description: "unauthorized"
       headers: headers
+      content: {}
 
   if header.startsWith "credentials"
     return echoResponse "ok", {}, options.body

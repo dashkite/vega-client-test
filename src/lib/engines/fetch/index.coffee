@@ -10,7 +10,10 @@ cache.testDomain = do ->
 test = ( fetch, _url, options ) ->
   url = new URL _url
   options ?= method: "get"
-  options.method ?= "get"
+  if !options.method?
+    options.method = "get"
+  else
+    options.method = options.method.toLowerCase()
   queue.push { type: "request", url, options }
   
   echoValue = await dispatch url, options
