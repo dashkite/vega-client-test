@@ -4,6 +4,7 @@ import { PUBLIC_ORIGIN as origin } from "$env/static/public"
 import { queue } from "$lib/helpers/queue.coffee"
 import { setDispatcher } from "$lib/engines/fetch/echo.coffee"
 import * as RunesClient from "@dashkite/runes-client"
+import { Async } from "@dashkite/talos"
 
 
 Confidential = confidential()
@@ -70,6 +71,13 @@ issueRune = ( authorization ) ->
     throw new Error "failed to get echo test rune"
   await response.json()
 
+Request = 
+  run: ( reactor ) ->
+    talos = await Async.run reactor
+    if talos.failure
+      throw talos.error
+    talos.context.sublime?.response?.content
+
 
 export {
   random
@@ -85,4 +93,6 @@ export {
 
   encode
   issueRune
+
+  Request
 }

@@ -21,7 +21,7 @@ prepare = ( Helpers ) ->
           foo: "foo"
       
       Helpers.clearRunes authorization.identity
-      response = await Resource.put context
+      response = await Helpers.Request.run Resource.put context
 
       await Helpers.assertDiscover()
       
@@ -43,7 +43,7 @@ prepare = ( Helpers ) ->
       
       Helpers.clearRunes authorization.identity
       RunesClient.store await Helpers.issueRune authorization
-      response = await Resource.put context
+      response = await Helpers.Request.run Resource.put context
 
       await Helpers.assertDiscover()
       
@@ -66,7 +66,7 @@ prepare = ( Helpers ) ->
           foo: "foo"
       
       Helpers.clearRunes authorization.identity
-      response = await Resource.put context
+      response = await Helpers.Request.run Resource.put context
 
       await Helpers.assertDiscover()
       

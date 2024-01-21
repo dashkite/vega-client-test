@@ -8,7 +8,7 @@ prepare = ( Helpers ) ->
   setupCache = ( getContext, putContext ) ->
     # Cache miss on first GET
     try
-      await Resource.get getContext
+      await Helpers.Request.run Resource.get getContext
     catch
     
     await Helpers.assertDiscover()
@@ -24,7 +24,7 @@ prepare = ( Helpers ) ->
 
 
     # Write through caching on PUT
-    await Resource.put putContext
+    await Helpers.Request.run Resource.put putContext
     
     await Helpers.assertDiscover()
 
@@ -52,7 +52,7 @@ prepare = ( Helpers ) ->
       await setupCache getContext, putContext
       
       # Request will draw from cache
-      response = await Resource.get getContext
+      response = await Helpers.Request.run Resource.get getContext
 
       await Helpers.assertDiscover()
       values = queue.values()
@@ -61,7 +61,7 @@ prepare = ( Helpers ) ->
 
 
       # Remove the resource
-      response = await Resource.delete getContext
+      response = await Helpers.Request.run Resource.delete getContext
     
       await Helpers.assertDiscover()
       
@@ -77,7 +77,7 @@ prepare = ( Helpers ) ->
 
       #  Followup GET fails with 404 status
       try
-        await Resource.get getContext
+        await Helpers.Request.run Resource.get getContext
       catch
       
       await Helpers.assertDiscover()

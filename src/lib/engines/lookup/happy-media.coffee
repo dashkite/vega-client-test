@@ -10,7 +10,7 @@ prepare = ( Helpers ) ->
     Helpers.test "json", ->
       content = foo: "foo"
 
-      response = await Resource.put
+      response = await Helpers.Request.run Resource.put
         origin: Helpers.origin
         name: "happy json"
         content: content
@@ -31,7 +31,7 @@ prepare = ( Helpers ) ->
     Helpers.test "text", ->
       content = "foo is foo"
 
-      response = await Resource.put
+      response = await Helpers.Request.run Resource.put
         origin: Helpers.origin
         name: "happy text"
         content: content
@@ -52,7 +52,7 @@ prepare = ( Helpers ) ->
     Helpers.test "binary", ->
       content = new ArrayBuffer 8
 
-      response = await Resource.put
+      response = await Helpers.Request.run Resource.put
         origin: Helpers.origin
         name: "happy binary"
         content: content

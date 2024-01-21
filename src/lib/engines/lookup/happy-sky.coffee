@@ -7,7 +7,7 @@ prepare = ( Helpers ) ->
 
   [
     Helpers.test "get", ->
-      response = await Resource.get
+      response = await Helpers.Request.run Resource.get
         origin: Helpers.origin
         name: "happy sky"
         bindings:
@@ -28,7 +28,7 @@ prepare = ( Helpers ) ->
       assert.equal "bar", response.bar
 
     Helpers.test "put", ->
-      response = await Resource.put
+      response = await Helpers.Request.run Resource.put
         origin: Helpers.origin
         name: "happy sky"
         bindings:
@@ -37,6 +37,7 @@ prepare = ( Helpers ) ->
         content:
           foo: "bar"
       
+      console.log { response }
       await Helpers.assertDiscover()
 
       event = await queue.get()
@@ -51,13 +52,14 @@ prepare = ( Helpers ) ->
       assert.equal "bar", response.foo
 
     Helpers.test "delete", ->
-      response = await Resource.delete
+      response = await Helpers.Request.run Resource.delete
         origin: Helpers.origin
         name: "happy sky"
         bindings:
           alpha: "foo"
           beta: "bar"
       
+      console.log { response }
       await Helpers.assertDiscover()
 
       event = await queue.get()
@@ -69,10 +71,10 @@ prepare = ( Helpers ) ->
       assert.equal "response", event.type
       assert.equal 204, event.response.status
       
-      assert.equal null, response
+      assert !response?
 
     Helpers.test "post", ->
-      response = await Resource.post
+      response = await Helpers.Request.run Resource.post
         origin: Helpers.origin
         name: "happy sky"
         bindings:
@@ -81,6 +83,7 @@ prepare = ( Helpers ) ->
         content:
           foo: "baz"
       
+      console.log { response }
       await Helpers.assertDiscover()
 
       event = await queue.get()

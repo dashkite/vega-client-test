@@ -18,7 +18,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Resource.get context
+        await Helpers.Request.run Resource.get context
         success = true
       catch error
         success = false
@@ -46,7 +46,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Resource.get context
+        await Helpers.Request.run Resource.get context
         success = true
       catch error
         success = false
@@ -67,7 +67,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Resource.get context
+        await Helpers.Request.run Resource.get context
         success = true
       catch error
         success = false
@@ -88,7 +88,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Resource.post context
+        await Helpers.Request.run Resource.post context
         success = true
       catch error
         success = false
