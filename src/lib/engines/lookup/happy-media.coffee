@@ -1,6 +1,6 @@
 import assert from "@dashkite/assert"
 import * as Type from "@dashkite/joy/type"
-import { Resource } from "@dashkite/vega-client"
+import { HTTP } from "@dashkite/vega-client"
 import { queue } from "$lib/helpers/queue.coffee"
 
 
@@ -10,7 +10,7 @@ prepare = ( Helpers ) ->
     Helpers.test "json", ->
       content = foo: "foo"
 
-      response = await Helpers.Request.run Resource.put
+      response = await Helpers.Request.run HTTP.put
         origin: Helpers.origin
         name: "happy json"
         content: content
@@ -31,7 +31,7 @@ prepare = ( Helpers ) ->
     Helpers.test "text", ->
       content = "foo is foo"
 
-      response = await Helpers.Request.run Resource.put
+      response = await Helpers.Request.run HTTP.put
         origin: Helpers.origin
         name: "happy text"
         content: content
@@ -52,7 +52,7 @@ prepare = ( Helpers ) ->
     Helpers.test "binary", ->
       content = new ArrayBuffer 8
 
-      response = await Helpers.Request.run Resource.put
+      response = await Helpers.Request.run HTTP.put
         origin: Helpers.origin
         name: "happy binary"
         content: content

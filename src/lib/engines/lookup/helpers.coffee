@@ -78,6 +78,13 @@ Request =
       throw talos.error
     talos.context.sublime?.response?.content
 
+  holon: ( reactor ) ->
+    for await talos from reactor
+      console.log talos
+    if talos.failure
+      throw talos.error
+    talos.context.sublime?.response?.content
+
 
 export {
   random

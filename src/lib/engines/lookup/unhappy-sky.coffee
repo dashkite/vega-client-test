@@ -1,5 +1,5 @@
 import assert from "@dashkite/assert"
-import { Resource } from "@dashkite/vega-client"
+import { HTTP } from "@dashkite/vega-client"
 import { queue } from "$lib/helpers/queue.coffee"
 
 
@@ -18,7 +18,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Helpers.Request.run Resource.get context
+        await Helpers.Request.run HTTP.get context
         success = true
       catch error
         success = false
@@ -46,7 +46,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Helpers.Request.run Resource.get context
+        await Helpers.Request.run HTTP.get context
         success = true
       catch error
         success = false
@@ -67,7 +67,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Helpers.Request.run Resource.get context
+        await Helpers.Request.run HTTP.get context
         success = true
       catch error
         success = false
@@ -88,7 +88,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Helpers.Request.run Resource.post context
+        await Helpers.Request.run HTTP.post context
         success = true
       catch error
         success = false

@@ -1,6 +1,6 @@
 import assert from "@dashkite/assert"
 import * as Type from "@dashkite/joy/type"
-import { Resource } from "@dashkite/vega-client"
+import { HTTP } from "@dashkite/vega-client"
 import { queue } from "$lib/helpers/queue.coffee"
 
 
@@ -15,7 +15,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Helpers.Request.run Resource.put context
+        await Helpers.Request.run HTTP.put context
         success = true
       catch error
         success = false
@@ -33,7 +33,7 @@ prepare = ( Helpers ) ->
 
       success = null
       try
-        await Helpers.Request.run Resource.put context
+        await Helpers.Request.run HTTP.put context
         success = true
       catch error
         success = false

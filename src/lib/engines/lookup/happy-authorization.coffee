@@ -1,5 +1,5 @@
 import assert from "@dashkite/assert"
-import { Resource } from "@dashkite/vega-client"
+import { HTTP } from "@dashkite/vega-client"
 import { queue } from "$lib/helpers/queue.coffee"
 import * as RunesClient from "@dashkite/runes-client"
 import authorization from "./authorization.yaml"
@@ -21,7 +21,7 @@ prepare = ( Helpers ) ->
           foo: "foo"
       
       Helpers.clearRunes authorization.identity
-      response = await Helpers.Request.run Resource.put context
+      response = await Helpers.Request.run HTTP.put context
 
       await Helpers.assertDiscover()
       
@@ -43,7 +43,7 @@ prepare = ( Helpers ) ->
       
       Helpers.clearRunes authorization.identity
       RunesClient.store await Helpers.issueRune authorization
-      response = await Helpers.Request.run Resource.put context
+      response = await Helpers.Request.run HTTP.put context
 
       await Helpers.assertDiscover()
       
@@ -66,7 +66,7 @@ prepare = ( Helpers ) ->
           foo: "foo"
       
       Helpers.clearRunes authorization.identity
-      response = await Helpers.Request.run Resource.put context
+      response = await Helpers.Request.run HTTP.put context
 
       await Helpers.assertDiscover()
       

@@ -6,6 +6,7 @@ import unhappyMedia from "./unhappy-media.coffee"
 import cache from "./cache.coffee"
 import happyAuthorization from "./happy-authorization.coffee"
 import unhappyAuthorization from "./unhappy-authorization.coffee"
+import event from "./event.coffee"
 
 table = {
   happySky
@@ -15,6 +16,7 @@ table = {
   cache
   happyAuthorization
   unhappyAuthorization
+  event
 }
 
 

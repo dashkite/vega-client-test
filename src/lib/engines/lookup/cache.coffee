@@ -1,5 +1,5 @@
 import assert from "@dashkite/assert"
-import { Resource } from "@dashkite/vega-client"
+import { HTTP } from "@dashkite/vega-client"
 import { queue } from "$lib/helpers/queue.coffee"
 
 
@@ -8,7 +8,7 @@ prepare = ( Helpers ) ->
   setupCache = ( getContext, putContext ) ->
     # Cache miss on first GET
     try
-      await Helpers.Request.run Resource.get getContext
+      await Helpers.Request.run HTTP.get getContext
     catch
     
     await Helpers.assertDiscover()
@@ -24,7 +24,7 @@ prepare = ( Helpers ) ->
 
 
     # Write through caching on PUT
-    await Helpers.Request.run Resource.put putContext
+    await Helpers.Request.run HTTP.put putContext
     
     await Helpers.assertDiscover()
 
@@ -42,17 +42,17 @@ prepare = ( Helpers ) ->
 
   [
     Helpers.test "write through behavior", ->
-      getContext = 
+      getContext = ->
         origin: Helpers.origin
         name: "cache"
 
       content = value: "alpha"
-      putContext = { getContext..., content }
+      putContext = -> { getContext()..., content }
 
-      await setupCache getContext, putContext
+      await setupCache getContext(), putContext()
       
       # Request will draw from cache
-      response = await Helpers.Request.run Resource.get getContext
+      response = await Helpers.Request.run HTTP.get getContext()
 
       await Helpers.assertDiscover()
       values = queue.values()
@@ -61,7 +61,7 @@ prepare = ( Helpers ) ->
 
 
       # Remove the resource
-      response = await Helpers.Request.run Resource.delete getContext
+      response = await Helpers.Request.run HTTP.delete getContext()
     
       await Helpers.assertDiscover()
       
@@ -77,7 +77,7 @@ prepare = ( Helpers ) ->
 
       #  Followup GET fails with 404 status
       try
-        await Helpers.Request.run Resource.get getContext
+        await Helpers.Request.run HTTP.get getContext()
       catch
       
       await Helpers.assertDiscover()
