@@ -178,6 +178,9 @@ dispatchers =
       else
         throw new Error "no matching dispatch for path #{ path }"
 
+  "network failure": ( url, options ) ->
+    throw new Error "simulated fetch network error"
+
   normal: ( url, options ) ->
     path = url.pathname
     console.log "dispatch", options.method.toUpperCase(), path, options.headers

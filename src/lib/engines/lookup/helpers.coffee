@@ -5,6 +5,7 @@ import { queue } from "$lib/helpers/queue.coffee"
 import { setDispatcher } from "$lib/engines/fetch/echo.coffee"
 import * as RunesClient from "@dashkite/runes-client"
 import { Async } from "@dashkite/talos"
+import { Remap } from "@dashkite/vega-client"
 
 
 Confidential = confidential()
@@ -84,6 +85,12 @@ Request =
     if talos.failure
       throw talos.error
     talos.context.sublime?.response?.content
+
+  events: ( reactor ) ->
+    events = []
+    for await event from Remap.remap Remap.VegaEventMaps, reactor
+      events.push event
+    events
 
 
 export {

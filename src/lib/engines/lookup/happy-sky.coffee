@@ -7,7 +7,7 @@ prepare = ( Helpers ) ->
 
   [
     Helpers.test "get", ->
-      response = await Helpers.Request.run HTTP.get
+      response = await Helpers.Request.holon HTTP.get
         origin: Helpers.origin
         name: "happy sky"
         bindings:

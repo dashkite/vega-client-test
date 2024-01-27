@@ -3,21 +3,12 @@ import * as Type from "@dashkite/joy/type"
 import { HTTP, Remap } from "@dashkite/vega-client"
 import { queue } from "$lib/helpers/queue.coffee"
 
-{ remap, VegaEventMaps:maps } = Remap
-
-getEvents = ( reactor ) ->
-  events = []
-  for await event from Remap.remap Remap.VegaEventMaps, reactor
-    events.push event
-  events
-
-
 
 prepare = ( Helpers ) ->
 
   [
     Helpers.test "success", ->
-      events = await getEvents HTTP.get
+      events = await Helpers.Request.events HTTP.get
         origin: Helpers.origin
         name: "happy sky"
         bindings:
@@ -28,7 +19,7 @@ prepare = ( Helpers ) ->
       assert event?
 
     Helpers.test "failure", ->
-      events = await getEvents HTTP.get
+      events = await Helpers.Request.events HTTP.get
         origin: Helpers.origin
         name: "unhappy sky"
         bindings:
@@ -40,7 +31,7 @@ prepare = ( Helpers ) ->
 
     Helpers.test "json", ->
       content = foo: "foo"
-      events = await getEvents HTTP.put
+      events = await Helpers.Request.events HTTP.put
         origin: Helpers.origin
         name: "happy json"
         content: content
@@ -51,7 +42,7 @@ prepare = ( Helpers ) ->
 
     Helpers.test "text", ->
       content = "foo is foo"
-      events = await getEvents HTTP.put
+      events = await Helpers.Request.events HTTP.put
         origin: Helpers.origin
         name: "happy text"
         content: content
@@ -63,7 +54,7 @@ prepare = ( Helpers ) ->
     Helpers.test "blob", ->
       content = new ArrayBuffer 8
 
-      events = await getEvents HTTP.put
+      events = await Helpers.Request.events HTTP.put
         origin: Helpers.origin
         name: "happy binary"
         content: content
@@ -75,7 +66,7 @@ prepare = ( Helpers ) ->
 
     Helpers.test "content", ->
       content = foo: "foo"
-      events = await getEvents HTTP.put
+      events = await Helpers.Request.events HTTP.put
         origin: Helpers.origin
         name: "happy json"
         content: content

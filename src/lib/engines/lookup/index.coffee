@@ -7,6 +7,7 @@ import cache from "./cache.coffee"
 import happyAuthorization from "./happy-authorization.coffee"
 import unhappyAuthorization from "./unhappy-authorization.coffee"
 import event from "./event.coffee"
+import announce from "./announce.coffee"
 
 table = {
   happySky
@@ -17,6 +18,7 @@ table = {
   happyAuthorization
   unhappyAuthorization
   event
+  announce
 }
 
 
