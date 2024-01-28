@@ -17,7 +17,7 @@ prepare = ( Helpers ) ->
           alpha: "foo"
           beta: "bar"
 
-      find events, "unable to parse resource description"
+      find events, "encountered error and cannot reover"
 
     Helpers.test "discovery failure", ->
       Helpers.setDispatcher "bad discovery"
@@ -29,7 +29,7 @@ prepare = ( Helpers ) ->
           alpha: "foo"
           beta: "bar"
 
-      find events, "discovery failure"
+      find events, "encountered error and cannot reover"
 
     Helpers.test "network failure", ->
       Helpers.setDispatcher "network failure"
@@ -41,8 +41,8 @@ prepare = ( Helpers ) ->
           alpha: "foo"
           beta: "bar"
 
-      find events, "network failure"
-      find events, "discovery failure"
+      find events, "encountered network error"
+      find events, "encountered error and cannot reover"
 
     Helpers.test "resource match failure", ->
       events = await Helpers.Request.events HTTP.get
@@ -52,7 +52,7 @@ prepare = ( Helpers ) ->
           alpha: "foo"
           beta: "bar"
 
-      find events, "unable to match resource"
+      find events, "encountered error and cannot reover"
 
     Helpers.test "method match failure", ->
       events = await Helpers.Request.events HTTP.get
@@ -62,7 +62,7 @@ prepare = ( Helpers ) ->
           alpha: "foo"
           beta: "bar"
 
-      find events, "unable to match method"
+      find events, "encountered error and cannot reover"
 
     Helpers.test "authorization header failure", ->
       events = await Helpers.Request.events HTTP.put
@@ -74,7 +74,7 @@ prepare = ( Helpers ) ->
         content:
           foo: "foo"
 
-      find events, "unable to construct authorization header"
+      find events, "encountered error and cannot reover"
   
   ]
 

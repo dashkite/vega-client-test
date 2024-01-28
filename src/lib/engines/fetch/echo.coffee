@@ -179,7 +179,7 @@ dispatchers =
         throw new Error "no matching dispatch for path #{ path }"
 
   "network failure": ( url, options ) ->
-    throw new Error "simulated fetch network error"
+    throw new Error "Failed to fetch"
 
   normal: ( url, options ) ->
     path = url.pathname
