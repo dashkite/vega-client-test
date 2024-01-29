@@ -74,10 +74,14 @@ issueRune = ( authorization ) ->
 
 Request = 
   run: ( reactor ) ->
-    talos = await Async.run reactor
-    if talos.failure
-      throw talos.error
-    talos.context.sublime?.response?.content
+    content = null
+    for await event from reactor
+      switch event.name
+        when "json", "text", "blob", "content"
+          content = event.value
+        when "failure"
+          throw event.value 
+    content
 
   holon: ( reactor ) ->
     for await talos from reactor
@@ -87,10 +91,8 @@ Request =
     talos.context.sublime?.response?.content
 
   events: ( reactor ) ->
-    events = []
-    for await event from Remap.remap Remap.VegaEventMaps, reactor
-      events.push event
-    events
+    for await event from reactor
+      event
 
 
 export {
