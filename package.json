@@ -12,7 +12,8 @@
   "homepage": "https://github.com/dashkite/vega-client-test#readme",
   "scripts": {
     "dev": "vite dev",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build": "echo 'run [ vite dev ] to build'"
   },
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "^1.0.4",
