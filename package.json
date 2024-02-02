@@ -31,6 +31,7 @@
     "@dashkite/bake": "^0.0.6",
     "@dashkite/joy": "^0.3.16",
     "@dashkite/runes-client": "link:../runes-client",
+    "@dashkite/sierra": "link:../sierra",
     "@dashkite/talos": "link:../talos",
     "@dashkite/vega-client": "link:../vega-client",
     "@shoelace-style/shoelace": "^2.12.0",

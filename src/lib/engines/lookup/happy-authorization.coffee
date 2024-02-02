@@ -67,6 +67,10 @@ prepare = ( Helpers ) ->
       
       Helpers.clearRunes authorization.identity
       response = await Helpers.Request.run HTTP.put context
+      # response = await Helpers.Request.holon HTTP.start
+      #   method: "put"
+      #   resource: context
+      #   content: context.content
 
       await Helpers.assertDiscover()
       

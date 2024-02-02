@@ -9,6 +9,8 @@ import unhappyAuthorization from "./unhappy-authorization.coffee"
 import event from "./event.coffee"
 import announce from "./announce.coffee"
 
+import sierraBuild from "./sierra-build.coffee"
+
 table = {
   happySky
   unhappySky
@@ -19,6 +21,8 @@ table = {
   unhappyAuthorization
   event
   announce
+
+  sierraBuild
 }
 
 

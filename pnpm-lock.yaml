@@ -17,6 +17,9 @@ dependencies:
   '@dashkite/runes-client':
     specifier: link:../runes-client
     version: link:../runes-client
+  '@dashkite/sierra':
+    specifier: link:../sierra
+    version: link:../sierra
   '@dashkite/talos':
     specifier: link:../talos
     version: link:../talos
