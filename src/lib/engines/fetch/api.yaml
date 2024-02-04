@@ -119,7 +119,7 @@ resources:
     methods:
       put:
         request:
-          authorization: [ rune ]
+          authorization: [ rune, email ]
           content-type: [ application/json ]
         response:
           content-type: [ application/json ]

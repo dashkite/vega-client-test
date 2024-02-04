@@ -1,5 +1,5 @@
 import assert from "@dashkite/assert"
-import { HTTP } from "@dashkite/vega-client"
+import { HTTP, Holon } from "@dashkite/vega-client"
 import { queue } from "$lib/helpers/queue.coffee"
 import * as RunesClient from "@dashkite/runes-client"
 import authorization from "./authorization.yaml"
@@ -60,17 +60,11 @@ prepare = ( Helpers ) ->
       context = 
         origin: Helpers.origin
         name: "happy email"
-        authorization:
-          email: authorization.identity
         content:
           foo: "foo"
       
       Helpers.clearRunes authorization.identity
       response = await Helpers.Request.run HTTP.put context
-      # response = await Helpers.Request.holon HTTP.start
-      #   method: "put"
-      #   resource: context
-      #   content: context.content
 
       await Helpers.assertDiscover()
       

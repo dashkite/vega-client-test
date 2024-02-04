@@ -57,9 +57,9 @@ assertDiscover = ->
   assert.equal "response", event.type
   assert.equal 200, event.response.status
 
-clearRunes = ( identity ) ->
-  localStorage.setItem "identity", identity
-  localStorage.removeItem identity
+clearRunes = ( email ) ->
+  localStorage.setItem "email", email
+  localStorage.removeItem email
 
 encode = ( object ) ->
   Confidential.convert from: "utf8", to: "base64", JSON.stringify object
@@ -89,6 +89,13 @@ Request =
     if talos.failure
       throw talos.error
     talos.context.sublime?.response?.content
+
+  holonEvents: ( reactor ) ->
+    for await event from reactor
+      console.log event
+    if event.talos.failure
+      throw event.talos.event
+    event.talos.context.sublime?.response?.content
 
   events: ( reactor ) ->
     for await event from reactor

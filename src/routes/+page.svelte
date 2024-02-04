@@ -6,12 +6,12 @@
 
   let blocks = [];
   let _blocks = [
-    [ "happySky", "Happy Path Request Response Cycle" ],
-    [ "unhappySky", "Unhappy Path Sky Interactions" ],
-    [ "happyMedia", "Happy Path Media Type Inference" ],
-    [ "unhappyMedia", "Unhappy Path Media Type Inference" ],
-    [ "cache", "Write Through Caching" ],
-    [ "happyAuthorization", "Happy Authorization Flows" ],
+    // [ "happySky", "Happy Path Request Response Cycle" ],
+    // [ "unhappySky", "Unhappy Path Sky Interactions" ],
+    // [ "happyMedia", "Happy Path Media Type Inference" ],
+    // [ "unhappyMedia", "Unhappy Path Media Type Inference" ],
+    // [ "cache", "Write Through Caching" ],
+    // [ "happyAuthorization", "Happy Authorization Flows" ],
     [ "unhappyAuthorization", "Unhappy Authorization Flows" ],
     [ "event", "Event Reactor Interface" ],
     [ "announce", "Annouce Event Reactor Interface" ],
