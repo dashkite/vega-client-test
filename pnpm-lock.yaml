@@ -36,6 +36,9 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
     devDependencies:
+      '@dashkite/vista':
+        specifier: link:../vista
+        version: link:../vista
       '@modyfi/vite-plugin-yaml':
         specifier: ^1.0.4
         version: 1.1.1(rollup@4.34.9)(vite@5.4.14)
