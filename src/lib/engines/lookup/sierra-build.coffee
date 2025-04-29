@@ -27,8 +27,6 @@ prepare = ( Helpers ) ->
           console.log current
           throw current.error
       
-      # TODO: What shape should this test take? We don't need to test runes-client
-      #  just that we're getting something reasonable here.
       result = current.context.credentials
       console.log result
       assert result?
