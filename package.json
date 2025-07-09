@@ -16,7 +16,6 @@
     "build": "echo 'run [ vite dev ] to build'"
   },
   "devDependencies": {
-    "@dashkite/vista": "link:../vista",
     "@modyfi/vite-plugin-yaml": "^1.0.4",
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.0.6",
